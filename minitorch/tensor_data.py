@@ -82,7 +82,6 @@ def to_index(ordinal: int, shape: Shape, out_index: OutIndex) -> None:
 
     # Iterate through dimensions in reverse order by mins 1 each time
     for i in range(len(shape) - 1, -1, -1):
-
         # Calculate the index for the current dimension by ordinal % shape[i] and update the output index
         out_index[i] = ordinal % shape[i]
         # Update ordinal for the next iteration using the remainder of the division between ordinal and shape[i]
@@ -120,10 +119,8 @@ def broadcast_index(
 
     # Iterate through dimensions of the small tensor from right to left
     for i in range(small_dim - 1, -1, -1):
-
         # If no broadcasting is needed, copy the index from the big tensor to the output index
         if shape[i] > 1:
-
             # Calculate the index of the big tensor corresponding to the current index of the small tensor and update the output index
             big_i = i + diff
             out_index[i] = big_index[big_i]
@@ -154,15 +151,14 @@ def shape_broadcast(shape1: UserShape, shape2: UserShape) -> UserShape:
     # Declare two indices to iterate through the shapes from the right to the left
     shape1_idx = len(shape1) - 1
     shape2_idx = len(shape2) - 1
-    
+
     # Create the broadcasted shape by checking each pair of values of the two tensor shapes from the right to the left
     broadcasted_shape = []
     while shape1_idx >= 0 or shape2_idx >= 0:
-
         # Get the value of the current index of both tensor shapes, if the index is out of bounds, set the value to 1
         shape1_val = shape1[shape1_idx] if shape1_idx >= 0 else 1
         shape2_val = shape2[shape2_idx] if shape2_idx >= 0 else 1
-        
+
         # Check each pari of values of the two tensor shapes based on the broadcasting rules
         if shape1_val == 1:
             broadcasted_shape.insert(0, shape2_val)
@@ -233,7 +229,8 @@ class TensorData:
     def is_contiguous(self) -> bool:
         """Check that the layout is contiguous, i.e. outer dimensions have bigger strides than inner dimensions.
 
-        Returns:
+        Returns
+        -------
             bool : True if contiguous
 
         """
@@ -297,7 +294,8 @@ class TensorData:
     def indices(self) -> Iterable[UserIndex]:
         """Generate all valid indices for the tensor.
 
-        Returns:
+        Returns
+        -------
             An iterable of all valid indices
 
         """
