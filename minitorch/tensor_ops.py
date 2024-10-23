@@ -274,8 +274,8 @@ def tensor_map(
         in_strides: Strides,
     ) -> None:
         # Create index arrays for input and output
-        out_index = np.zeros(MAX_DIMS, dtype=np.int32)
-        in_index = np.zeros(MAX_DIMS, dtype=np.int32)
+        out_index: Index = np.zeros(MAX_DIMS, dtype=np.int32)
+        in_index: Index = np.zeros(MAX_DIMS, dtype=np.int32)
 
         # Iterate through all elements of the output storage
         for out_pos in range(len(out)):
@@ -336,9 +336,9 @@ def tensor_zip(
         b_strides: Strides,
     ) -> None:
         # Create index arrays for input and output
-        out_index = np.zeros(MAX_DIMS, dtype=np.int32)
-        a_index = np.zeros(MAX_DIMS, dtype=np.int32)
-        b_index = np.zeros(MAX_DIMS, dtype=np.int32)
+        out_index: Index = np.zeros(MAX_DIMS, dtype=np.int32)
+        a_index: Index = np.zeros(MAX_DIMS, dtype=np.int32)
+        b_index: Index = np.zeros(MAX_DIMS, dtype=np.int32)
 
         # Iterate through all elements of the output storage
         for out_pos in range(len(out)):

@@ -77,15 +77,16 @@ def to_index(ordinal: int, shape: Shape, out_index: OutIndex) -> None:
         out_index : return index corresponding to position
 
     """
-    # Fill the output index with zeros
-    out_index.fill(0)
+    # Calculate the strides from the shape
+    strides = strides_from_shape(list(shape))
 
-    # Iterate through dimensions in reverse order by mins 1 each time
-    for i in range(len(shape) - 1, -1, -1):
-        # Calculate the index for the current dimension by ordinal % shape[i] and update the output index
-        out_index[i] = ordinal % shape[i]
-        # Update ordinal for the next iteration using the remainder of the division between ordinal and shape[i]
-        ordinal //= shape[i]
+    # Iterate through the strides and calculate the index for each dimension
+    for i in range(len(strides)):
+        # Calculate the index for the current dimension
+        out_index[i] = ordinal // strides[i]
+
+        # Update the ordinal for the next dimension using the remainder
+        ordinal = ordinal % strides[i]
 
 
 def broadcast_index(
